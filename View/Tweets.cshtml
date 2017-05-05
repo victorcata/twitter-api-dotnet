@@ -1,0 +1,40 @@
+@model List<[namespace].Models.Tweet>
+
+@{
+    int itemsPerSlide = 4;
+    int slides = Model.Count / itemsPerSlide;
+    int idx = 0;
+}
+
+<article id="tweets" class="slider container">
+    <div class="slider-header">
+        <h2>Twitter</h2> 
+    </div>
+    <div class="slider-body">
+        @for (var i = 0; i < slides; i++)
+        {
+            <div class="slider-slide @if (i == 0) {<text>is-active</text>}">
+                <div class="tweets__slide">
+                    @for (var j = 0; j < itemsPerSlide; j++)
+                    {
+                        @Html.Partial("Tweet", Model[idx])
+                        idx++;
+                        if (idx > Model.Count)
+                        {
+                            break;
+                        }
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <ul class="slider-pags">
+        @if (slides > 1)
+        {
+            for (var i = 0; i < slides; i++)
+            {
+                <li @if (i == 0) {<text>class="is-active"</text>}></li>
+            }
+        }
+    </ul>
+</article>

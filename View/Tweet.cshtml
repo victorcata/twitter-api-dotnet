@@ -1,0 +1,22 @@
+@using System.Text.RegularExpressions
+@model [namespace].Models.Tweet
+
+@{ 
+    string userImage = string.Format("https://twitter.com/{0}/profile_image?size=original", Model.UserName);
+    var textHTML = Html.Raw(Regex.Replace(Model.Message, @"(#\S+)", "<span class=\"hashtag\">$1</span>"));
+}
+
+<section class="tweet">
+    <div class="tweet-body"> 
+        <p>@textHTML</p>
+    </div>
+    <div class="tweet-author">
+        <div class="avatar">
+            <img src="@userImage"/>
+        </div>
+        <div class="info">
+            <p class="name">@Model.Author</p>
+            <p class="username">@@@Model.UserName</p>
+        </div>
+    </div>
+</section>
